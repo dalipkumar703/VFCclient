@@ -1,7 +1,6 @@
 import React from "react";
 import {Typeahead,Control} from 'react-bootstrap-typeahead';
 import {FormGroup,Button} from 'react-bootstrap';
-import createHistory from 'history/createBrowserHistory'
 import updateUser from '../api/update-city';
 import {Alert} from 'react-bootstrap';
 import {Redirect} from 'react-router-dom';
@@ -33,7 +32,7 @@ class Loc extends React.Component {
     });
     store.dispatch(AlertUpdate(!store.getState().show));
     console.log("redirect time");
-
+this.props.history.push('/');
   }
   render() {
     return (

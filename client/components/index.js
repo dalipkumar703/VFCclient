@@ -5,10 +5,11 @@ import {BrowserRouter} from 'react-router-dom';
 import AlertBox from './Alert';
 import {Provider} from 'react-redux';
 import store from '../store';
+import history from './history';
 const App=()=>{
   return (
     <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter history={history}>
     <div>
     <NavBar/>
     <AlertBox />

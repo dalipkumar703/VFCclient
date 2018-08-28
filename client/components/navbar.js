@@ -18,9 +18,11 @@ const NavBar=({})=>{
     Location
       </NavItem>
       </LinkContainer>
-      <NavItem eventKey={2} href="#">
-        Create
-      </NavItem>
+      <LinkContainer to='/ask/vote'>
+            <NavItem eventKey={2}>
+          Create Vote
+            </NavItem>
+            </LinkContainer>
       <NavItem eventKey={3} href="#">
         Vote
       </NavItem>
