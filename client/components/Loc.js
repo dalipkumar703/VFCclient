@@ -55,7 +55,7 @@ this.props.history.push('/');
         />
 
          <Button bsStyle="primary" style={{marginTop:'15px'}} onClick={this.updateCity.bind(this)}>Submit</Button>
-         <Button bsStyle="danger" style={{marginTop:'15px'}} >Back</Button>
+        &nbsp; <Button bsStyle="danger" style={{marginTop:'15px'}} >Back</Button>
         </div>
 
 

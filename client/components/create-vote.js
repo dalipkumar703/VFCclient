@@ -9,12 +9,14 @@ import {
   ControlLabel,
   FormControl,
   form,
-  Checkbox
+  Checkbox,
+  Glyphicon
 } from "react-bootstrap";
 class Vote extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange=this.handleChange.bind(this);
+    this.addCheckbox=this.addCheckbox.bind(this);
     this.state = {
       text: "Select the best contestant?",
       checkboxText1: " ",
@@ -23,8 +25,22 @@ class Vote extends React.Component {
       checkboxText4: " "
     };
   }
+  addCheckbox(){
+     
+  }
   handleChange(e,context) {
-    this.setState({ checkboxText1: e.target.value });
+    if(context==='text'){
+    this.setState({text: e.target.value});
+    }
+    else if(context==='checkboxText1') {
+    this.setState({checkboxText1: e.target.value});
+    }
+    else if(context==='checkboxText2'){
+      this.setState({checkboxText2: e.target.value});
+    }
+    else{
+      this.setState({checkboxText3: e.target.value});
+    }
   }
   render() {
     return (
@@ -46,7 +62,7 @@ class Vote extends React.Component {
                     type="text"
                     value={this.state.text}
                     placeholder="Are you joining our event?"
-                    onChange={handleChange()}
+                    onChange={(e)=>this.handleChange(e,'text')}
                   />
                 </FormGroup>
                 <FormGroup>
@@ -59,10 +75,10 @@ class Vote extends React.Component {
                           : this.state.checkboxText1
                       }
                       placeholder="Option 1"
-                      onChange={this.handleChange.bind(this)}
+                      onChange={(e)=>this.handleChange(e,'checkboxText1')}
                     />
                   </Checkbox>
-                <br>  <br />
+                 <br />
 
                   <Checkbox inline>
                     <FormControl
@@ -73,10 +89,10 @@ class Vote extends React.Component {
                           : this.state.checkboxText2
                       }
                       placeholder="Option 2"
-                      onChange={this.handleChange.bind(this)}
+                      onChange={(e)=>this.handleChange(e,'checkboxText2')}
                     />
                   </Checkbox>
-                <br>  <br />
+                 <br />
                   <Checkbox inline>
                     <FormControl
                       type="text"
@@ -86,10 +102,13 @@ class Vote extends React.Component {
                           : this.state.checkboxText3
                       }
                       placeholder="Option 3"
-                      onChange={this.handleChange.bind(this)}
+                      onChange={(e)=>this.handleChange(e,'checkboxText3')}
                     />
-                  </Checkbox>
+                  </Checkbox><Button bsStyle="primary" onClick={this.addCheckbox}>   <Glyphicon glyph="plus" /></Button>&nbsp;
+                  <Button bsStyle="primary">   <Glyphicon glyph="minus" /></Button>
                 </FormGroup>
+                <Button bsStyle="primary">Submit</Button>&nbsp;
+                <Button bsStyle="primary">Preview</Button>
               </form>
             </Thumbnail>
           </Col>
