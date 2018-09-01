@@ -12,34 +12,49 @@ import {
   Checkbox,
   Glyphicon
 } from "react-bootstrap";
+import CheckboxDynamic from './checkbox-dynamic';
 class Vote extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange=this.handleChange.bind(this);
     this.addCheckbox=this.addCheckbox.bind(this);
+    this.removeCheckbox=this.removeCheckbox.bind(this);
     this.state = {
       text: "Select the best contestant?",
-      checkboxText1: " ",
-      checkboxText2: " ",
-      checkboxText3: " ",
-      checkboxText4: " "
+      checkboxText:[],
+      loop:3
     };
   }
+  componentWillMount(){
+    let box=[];
+    for(let i=0;i<this.state.loop;i++)
+    {
+       box.push({text:" "});
+    }
+  this.setState({checkboxText:box});
+  }
   addCheckbox(){
-     
+    this.setState({ checkboxText: [...this.state.checkboxText, {text:" "}] })
+     this.setState({loop:this.state.loop+1});
+  }
+  removeCheckbox(){
+   this.setState({loop:this.state.loop-1});
+
   }
   handleChange(e,context) {
+    e.preventDefault();
     if(context==='text'){
     this.setState({text: e.target.value});
     }
-    else if(context==='checkboxText1') {
-    this.setState({checkboxText1: e.target.value});
-    }
-    else if(context==='checkboxText2'){
-      this.setState({checkboxText2: e.target.value});
-    }
     else{
-      this.setState({checkboxText3: e.target.value});
+      const items = this.state.checkboxText;
+   items[context].text = e.target.value;
+
+   // update state
+   this.setState({
+       items,
+   });
+
     }
   }
   render() {
@@ -66,47 +81,11 @@ class Vote extends React.Component {
                   />
                 </FormGroup>
                 <FormGroup>
-                  <Checkbox inline>
-                    <FormControl
-                      type="text"
-                      value={
-                        this.state.checkboxText1 === " "
-                          ? "Option 1"
-                          : this.state.checkboxText1
-                      }
-                      placeholder="Option 1"
-                      onChange={(e)=>this.handleChange(e,'checkboxText1')}
-                    />
-                  </Checkbox>
-                 <br />
+                 <CheckboxDynamic loop={this.state.loop} checkboxText={this.state.checkboxText} handleChange={this.handleChange}/>
 
-                  <Checkbox inline>
-                    <FormControl
-                      type="text"
-                      value={
-                        this.state.checkboxText2 === " "
-                          ? "Option 2"
-                          : this.state.checkboxText2
-                      }
-                      placeholder="Option 2"
-                      onChange={(e)=>this.handleChange(e,'checkboxText2')}
-                    />
-                  </Checkbox>
-                 <br />
-                  <Checkbox inline>
-                    <FormControl
-                      type="text"
-                      value={
-                        this.state.checkboxText3 === " "
-                          ? "Option 3"
-                          : this.state.checkboxText3
-                      }
-                      placeholder="Option 3"
-                      onChange={(e)=>this.handleChange(e,'checkboxText3')}
-                    />
-                  </Checkbox><Button bsStyle="primary" onClick={this.addCheckbox}>   <Glyphicon glyph="plus" /></Button>&nbsp;
-                  <Button bsStyle="primary">   <Glyphicon glyph="minus" /></Button>
                 </FormGroup>
+                <Button bsStyle="primary" onClick={this.addCheckbox}>   <Glyphicon glyph="plus" /></Button>&nbsp;
+                <Button bsStyle="primary" onClick={this.removeCheckbox}>   <Glyphicon glyph="minus" /></Button><br/>
                 <Button bsStyle="primary">Submit</Button>&nbsp;
                 <Button bsStyle="primary">Preview</Button>
               </form>

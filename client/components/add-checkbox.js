@@ -1,18 +1,23 @@
 import React from 'react';
 import {Checkbox,FormControl} from 'react-bootstrap';
-export default const Add_CheckBox=()=>{
+ const AddCheckBox=(props)=>{
 return (
+  <div>
   <Checkbox inline>
     <FormControl
       type="text"
       value={
-        this.state.checkboxText3 === " "
-          ? "Option 3"
-          : this.state.checkboxText3
+        props.checkboxText[props.loop].text === " "
+          ? "Option "+(props.loop+1)
+          : props.checkboxText[props.loop].text
       }
-      placeholder="Option 3"
-      onChange={(e)=>this.handleChange(e,'checkboxText3')}
+      placeholder={"Option"+(props.loop+1)}
+      onChange={(e)=>props.handleChange(e,props.loop)}
+      key={props.loop}
     />
   </Checkbox>
+<br></br>
+  </div>
 )
 };
+export default AddCheckBox;
